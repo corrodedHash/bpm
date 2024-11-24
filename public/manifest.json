@@ -1,0 +1,27 @@
+{
+    "name": "BPM Tracker",
+    "id": "https://apps.thasky.one/bpm",
+    "start_url": "https://apps.thasky.one/bpm",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "bpm_logo.svg",
+            "type": "image/svg+xml",
+            "sizes": "any"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "desktop.webp",
+            "sizes": "1280x720",
+            "type": "image/webp",
+            "form_factor": "wide"
+        },
+        {
+            "src": "mobile.webp",
+            "sizes": "750x1334",
+            "type": "image/webp",
+            "form_factor": "narrow"
+        }
+    ]
+}
