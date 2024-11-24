@@ -58,7 +58,7 @@
     align-items: center;
   }
   .bpm_dot_box {
-    min-height: calc(1em + 2 * 0.2em);
+    height: calc(3* (1em + 2 * 0.2em));
     width: calc((1em + 0.2em) * 16 + 0.6em);
     flex-wrap: wrap;
     border-radius: 8px;
