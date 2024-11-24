@@ -8,6 +8,16 @@
             "src": "bpm_logo.svg",
             "type": "image/svg+xml",
             "sizes": "any"
+        },
+        {
+            "src": "bpm_logo_192.webp",
+            "type": "image/webp",
+            "sizes": "192x192"
+        },
+        {
+            "src": "bpm_logo_512.webp",
+            "type": "image/webp",
+            "sizes": "512x512"
         }
     ],
     "screenshots": [
