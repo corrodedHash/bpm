@@ -1,35 +1,14 @@
 <script>
   import DotBox from "./DotBox.svelte";
+  import { linear_least_squares } from "./regression";
 
   let clicks = $state([]);
-
-  const linear_least_squares = () => {
-    const points = clicks.slice(-5);
-    const adjusted_points = points.map((v) => v - points[0]).slice(1);
-    const A_T_b = adjusted_points
-      .map((v, index) => v * (index + 1))
-      .reduce((a, b) => a + b);
-    // Faulhaber's formula
-    const A_T_A =
-      (Math.pow(adjusted_points.length, 3) +
-        (Math.pow(adjusted_points.length, 2) * 3) / 2 +
-        adjusted_points.length / 2) /
-      3;
-    const x = A_T_b / A_T_A;
-    return x;
-  };
-  const calc_bpm = () => {
-    if (clicks.length < 2) {
-      return "??";
-    } else {
-      const average_delta = linear_least_squares();
-      return Math.round(60 / (average_delta / 1000));
-    }
-  };
-
-  const as_bpm_color = () => {
-    return "lightblue";
-  };
+  let delta_ms = $derived(
+    clicks.length < 2 ? undefined : linear_least_squares(clicks.slice(-5)),
+  );
+  let bpm = $derived(
+    clicks.length < 2 ? undefined : Math.round(60 / (delta_ms / 1000)),
+  );
 
   const increment = () => {
     clicks.push(Date.now());
@@ -38,12 +17,12 @@
 
 <div class="counter_box">
   <div>
-    {calc_bpm()}
+    {bpm} BPM
   </div>
-  <DotBox {clicks} avg_delta={linear_least_squares()} />
+  <DotBox {clicks} avg_delta={delta_ms} />
 
   <button onclick={increment}>
-    BPM is {calc_bpm()}
+    BPM is {bpm}
   </button>
 </div>
 
