@@ -27,7 +27,7 @@
   </div>
   <DotBox {clicks} avg_delta={delta_ms} />
 
-  <button onclick={increment}>
+  <button class="bpm_button" onclick={increment}>
     BPM is {bpm}
   </button>
 </div>
@@ -38,5 +38,14 @@
     flex-direction: column;
     gap: 1em;
     align-items: center;
+  }
+
+  .bpm_button {
+    width: 100%;
+    min-height: 4em;
+    border-style: solid;
+    border-width: 6px;
+    border-image-source: linear-gradient(to bottom, violet, blue);
+    border-image-slice: 1 100%;
   }
 </style>

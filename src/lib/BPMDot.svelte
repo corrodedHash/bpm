@@ -11,20 +11,26 @@
   });
 
   const dot_color = $derived.by(() => {
+    /** @type {[string, number][]} */
+    const colors = [
+      ["lightblue", 5],
+      ["blue", 20],
+      ["orange", 70],
+      ["red", 200],
+      ["black", 500],
+    ];
     const score = avg_error_score;
-    if (score < 5) {
-      return "lightblue";
+    const index = colors.findIndex(([_, threshold]) => threshold >= score);
+    if (index === -1) {
+      return colors[colors.length - 1][0];
     }
-    if (score < 20) {
-      return "blue";
+    if (index === 0) {
+      return colors[0][0];
     }
-    if (score < 70) {
-      return "orange";
-    }
-    if (score < 200) {
-      return "red";
-    }
-    return "black";
+    const [lower_color, lower_thresh] = colors[index - 1];
+    const [upper_color, upper_thresh] = colors[index];
+    const ratio = (score - lower_thresh) / (upper_thresh - lower_thresh);
+    return `color-mix(in hsl, ${lower_color}, ${upper_color} ${ratio * 100}%)`;
   });
 </script>
 
