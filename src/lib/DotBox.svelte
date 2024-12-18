@@ -36,7 +36,7 @@
 </script>
 
 <div
-  class="bpm_dot_box"
+  class="bpm_dot_box_dynamic bpm_dot_box"
   class:bpm_starting={clicks.length > 0}
   bind:this={dotbox}
 >
@@ -46,6 +46,17 @@
 </div>
 
 <style>
+
+  .bpm_dot_box_dynamic {
+    --dot-count: 16;
+  }
+
+  @media (max-width: 600px) {
+    .bpm_dot_box_dynamic {
+        --dot-count: 8;
+    }
+  }
+
   .bpm_dot_box {
     --dot-margin: 0.2em;
     --dot-size: 1em;
@@ -55,7 +66,7 @@
     border-color: transparent;
     height: calc(3 * (var(--dot-size) + 2 * var(--dot-margin)));
     width: calc(
-      (var(--dot-size) + var(--dot-margin) * 2) * 16 + 2 * var(--box-padding)
+      (var(--dot-size) + var(--dot-margin) * 2) * var(--dot-count) + 2 * var(--box-padding)
     );
     flex-wrap: wrap;
     border-radius: 8px;
