@@ -1,10 +1,10 @@
 <script>
   import DotBox from "./DotBox.svelte";
-  import { linear_least_squares } from "./regression";
+  import { median } from "./regression";
 
   let clicks = $state([]);
   let delta_ms = $derived(
-    clicks.length < 2 ? undefined : linear_least_squares(clicks)
+    clicks.length < 2 ? undefined : median(clicks)
   );
   let bpm = $derived(
     clicks.length < 2 ? undefined : Math.round(60 / (delta_ms / 1000))
