@@ -24,6 +24,18 @@ export const median = (/** @type {number[]} */ points) => {
   }
 };
 
+export const truncated_weighted_mean = (/** @type {number[]} */ points) => {
+  const deltas = dropOutliers(pointDifferences(points), 0.125);
+  console.log(deltas)
+  const weighted = deltas.map((v, index) => {
+    const weight = Math.min(deltas.length - index, index + 1);
+    return v * weight;
+  }).reduce((a, b) => a + b);
+  // The sequence we use for the weight is actually the quarter-squares sequence (1,2,4,6,9,12,16,20,25)
+  const counter_weight = Math.floor(Math.pow((deltas.length + 1), 2) / 4)
+  return weighted / counter_weight;
+};
+
 /**
  * Calculate the differences between adjacent points.
 
@@ -38,3 +50,27 @@ const pointDifferences = (points) => {
   }
   return differences;
 }
+
+/**
+ * Drop the highest and lowest values from an array of numbers.
+ * @param {Array<number>} points - An array of numbers.
+ * @param {number} threshold - The fraction of the data to remove.
+ * @return {Array<number>} A sorted list of numbers with the highest and lowest values removed.
+ */
+
+const dropOutliers = (/** @type {number[]} */ points, /** @type {number} */ threshold) => {
+  if (threshold < 0 || threshold > 1) {
+    throw new Error('Threshold must be between 0 and 1');
+  }
+
+  const sortedPoints = [...points].sort((a, b) => a - b);
+  console.log(sortedPoints)
+  console.log(points)
+  const k = Math.floor(sortedPoints.length * threshold);
+  if (k == 0) {
+    return sortedPoints
+  }
+
+
+  return sortedPoints.slice(k, - k);
+};

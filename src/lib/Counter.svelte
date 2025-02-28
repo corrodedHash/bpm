@@ -1,13 +1,13 @@
 <script>
   import DotBox from "./DotBox.svelte";
-  import { median } from "./regression";
+  import { truncated_weighted_mean } from "./regression";
 
   let clicks = $state([]);
   let delta_ms = $derived(
-    clicks.length < 2 ? undefined : median(clicks)
+    clicks.length < 2 ? undefined : truncated_weighted_mean(clicks),
   );
   let bpm = $derived(
-    clicks.length < 2 ? undefined : Math.round(60 / (delta_ms / 1000))
+    clicks.length < 2 ? undefined : Math.round(60 / (delta_ms / 1000)),
   );
 
   const increment = () => {
